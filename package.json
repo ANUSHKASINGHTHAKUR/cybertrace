@@ -1,0 +1,19 @@
+{
+  "name": "cybertrace-portal",
+  "version": "1.0.0",
+  "description": "CyberTrace - Telecom Intelligence, Phone OSINT, & Authorized Geolocation Security Portal",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "keywords": [
+    "cybersecurity",
+    "osint",
+    "geolocation",
+    "telecom-security",
+    "reverse-geocoding"
+  ],
+  "author": "",
+  "license": "MIT"
+}

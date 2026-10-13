@@ -1,0 +1,58 @@
+{
+  "name": "CyberTrace — Telecom Intelligence & Geolocation Security Lab",
+  "short_name": "CyberTrace",
+  "description": "Advanced cybersecurity portal for Phone Number OSINT analysis, authorized live geolocation with reverse-geocoded physical address, and telecom signaling security lab.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#070a12",
+  "theme_color": "#00f2fe",
+  "orientation": "any",
+  "scope": "/",
+  "lang": "en",
+  "categories": ["utilities", "security", "productivity"],
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "favicon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "form_factor": "wide",
+      "label": "CyberTrace Phone OSINT Dashboard"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Phone OSINT Analyzer",
+      "short_name": "OSINT",
+      "description": "Analyze a phone number for carrier, risk and OSINT data",
+      "url": "/?tab=osint",
+      "icons": [{ "src": "favicon.svg", "sizes": "any" }]
+    },
+    {
+      "name": "Live GPS Locator",
+      "short_name": "GPS",
+      "description": "Capture authorized live GPS coordinates and physical address",
+      "url": "/?tab=geo",
+      "icons": [{ "src": "favicon.svg", "sizes": "any" }]
+    }
+  ]
+}

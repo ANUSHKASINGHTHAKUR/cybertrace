@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberTrace | Telecom Intelligence &amp; Geolocation Security Portal</title>
+  <meta name="description" content="CyberTrace: Advanced cybersecurity portal for Phone Number OSINT analysis, authorized live geolocation telemetry with reverse-geocoded physical address, and telecom signaling security lab.">
+  <meta name="theme-color" content="#070a12">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CyberTrace">
+  <meta property="og:title" content="CyberTrace | Telecom Intelligence &amp; Geolocation Security Lab">
+  <meta property="og:description" content="Advanced Phone OSINT, Live GPS Telemetry &amp; Telecom Security Research Portal">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="shortcut icon" href="/favicon.svg">
+  <link rel="apple-touch-icon" href="/favicon.svg">
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- Google Fonts: Inter and JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS for Dark Maps -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" crossorigin="anonymous">
+
+  <!-- Custom Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Header / HUD Status Bar -->
+    <header class="hud-header">
+      <div class="brand-wrapper">
+        <div class="brand-logo-icon">📡</div>
+        <div class="brand-text">
+          <h1>CYBERTRACE</h1>
+          <div class="brand-subtitle">TELECOM INTELLIGENCE &amp; GEOLOCATION SECURITY LAB</div>
+        </div>
+      </div>
+
+      <div class="hud-telemetry-status">
+        <div class="hud-pill" id="hudSystemStatus">
+          <span class="pulse-indicator"></span>
+          <span>NODE ONLINE // v1.0.4</span>
+        </div>
+        <div class="hud-pill" id="hudUtcClockContainer">
+          <span>UTC:</span>
+          <strong id="hudUtcClock">--:--:-- UTC</strong>
+        </div>
+        <div class="hud-pill" id="hudLocalClockContainer">
+          <span>LOCAL:</span>
+          <strong id="hudLocalClock">--:--:--</strong>
+        </div>
+      </div>
+    </header>
+
+    <!-- Navigation Tab Bar -->
+    <nav class="nav-tab-bar" aria-label="Main Navigation">
+      <button class="nav-tab-btn active" data-tab="tabOsint" id="navBtnOsint">
+        <span class="tab-number">01</span>
+        <span>Phone Intelligence &amp; OSINT</span>
+      </button>
+      <button class="nav-tab-btn" data-tab="tabGeo" id="navBtnGeo">
+        <span class="tab-number">02</span>
+        <span>Live GPS &amp; Address Locator</span>
+      </button>
+      <button class="nav-tab-btn" data-tab="tabTelecom" id="navBtnTelecom">
+        <span class="tab-number">03</span>
+        <span>Telecom Privacy &amp; SS7 Lab</span>
+      </button>
+      <button class="nav-tab-btn" data-tab="tabAudit" id="navBtnAudit">
+        <span class="tab-number">04</span>
+        <span>Forensics Audit Terminal</span>
+      </button>
+    </nav>
+
+    <!-- MAIN CONTENT VIEW AREA -->
+    <main>
+
+      <!-- TAB 1: PHONE OSINT AND TELECOM ANALYZER -->
+      <section class="tab-panel active" id="tabOsint">
+        <div class="section-intro">
+          <h2>Phone Number Intelligence &amp; Carrier OSINT</h2>
+          <p>Inspect ITU-T E.164 compliance, identify carrier networks, detect virtual VoIP lines, calculate fraud/spoofing risk, and visualize nominal country origins.</p>
+        </div>
+
+        <div class="grid-2col">
+          <!-- Left Column: Input and Analysis Dossier -->
+          <article class="cyber-card">
+            <div class="card-header-bar">
+              <div class="card-title">
+                <span class="icon">🔍</span> E.164 Number Parser &amp; Threat Evaluator
+              </div>
+              <span class="badge-tag badge-cyan">OSINT ENGINE</span>
+            </div>
+
+            <!-- Input Group -->
+            <div class="form-group">
+              <label class="form-label" for="phoneInput">Enter International Phone Number</label>
+              <div class="input-with-select">
+                <select class="cyber-select" id="countrySelect" name="countryPrefix" aria-label="Country Dialing Code Prefix">
+                  <option value="">Country Prefix...</option>
+                </select>
+                <input type="text" class="cyber-input" id="phoneInput" name="phoneNumber" placeholder="+1 202 555 0193 or +91 9876543210" value="+1 202 555 0193">
+              </div>
+
+              <!-- Quick Presets -->
+              <div class="presets-container">
+                <div class="presets-label">Test Samples / Scenarios:</div>
+                <div class="presets-grid">
+                  <button type="button" class="preset-btn" data-num="+1 202 555 0193">🇺🇸 US Mobile</button>
+                  <button type="button" class="preset-btn" data-num="+91 98765 43210">🇮🇳 India Mobile (Jio)</button>
+                  <button type="button" class="preset-btn" data-num="+44 7911 123456">🇬🇧 UK Mobile</button>
+                  <button type="button" class="preset-btn" data-num="+49 32 12345678">🇩🇪 German VoIP</button>
+                  <button type="button" class="preset-btn" data-num="+1 800 555 0149">🏢 US Toll-Free</button>
+                  <button type="button" class="preset-btn" data-num="+870 762 123456">🛰️ Satellite (High Risk)</button>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-bottom: 1.25rem;">
+              <button class="btn btn-primary" id="analyzePhoneBtn" style="width: 100%;">
+                <span>⚡ Run OSINT Analysis</span>
+              </button>
+            </div>
+
+            <!-- Error message if any -->
+            <div id="osintErrorBox" class="alert alert-danger hidden"></div>
+
+            <!-- Empty state -->
+            <div id="osintEmptyState" class="alert alert-info hidden">
+              Enter a phone number with country code and click <strong>Run OSINT Analysis</strong>.
+            </div>
+
+            <!-- Results Dossier -->
+            <div id="osintResultBox">
+              <!-- Risk Meter -->
+              <div class="risk-meter-container">
+                <div class="risk-header">
+                  <span class="detail-label">Spoofing &amp; Fraud Risk Score</span>
+                  <div style="display: flex; align-items: center; gap: 0.6rem;">
+                    <span id="resRiskLevel" class="badge-tag badge-success">LOW RISK</span>
+                    <span id="resRiskScore" class="risk-score-value">10/100</span>
+                  </div>
+                </div>
+                <div class="risk-bar-track">
+                  <div id="resRiskBar" class="risk-bar-fill risk-low" style="width: 10%;"></div>
+                </div>
+                <ul id="riskReasonsList" class="risk-reasons-list">
+                  <li>Standard cellular allocation with normal subscriber characteristics</li>
+                </ul>
+              </div>
+
+              <!-- Technical Telecom Attributes Grid -->
+              <div class="detail-list">
+                <div class="detail-item">
+                  <div class="detail-label">Jurisdiction / Country</div>
+                  <div class="detail-val" id="resCountry">🇺🇸 United States (US)</div>
+                </div>
+                <div class="detail-item">
+                  <div class="detail-label">Line Classification</div>
+                  <div class="detail-val" id="resLineType">Mobile / Wireline (NANP)</div>
+                </div>
+                <div class="detail-item">
+                  <div class="detail-label">Carrier / Network Operator</div>
+                  <div class="detail-val" id="resCarrier">Verizon Wireless</div>
+                </div>
+                <div class="detail-item">
+                  <div class="detail-label">International E.164 Format</div>
+                  <div class="detail-val" id="resE164">+12025550193</div>
+                </div>
+                <div class="detail-item">
+                  <div class="detail-label">Dialing Code</div>
+                  <div class="detail-val" id="resDialCode">+1</div>
+                </div>
+                <div class="detail-item">
+                  <div class="detail-label">National Dialing Mask</div>
+                  <div class="detail-val" id="resNational">(202) 555-0193</div>
+                </div>
+                <div class="detail-item">
+                  <div class="detail-label">RFC 3966 URI</div>
+                  <div class="detail-val" id="resRfc">tel:+12025550193</div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- Right Column: Nominal Map and Privacy Disclaimer -->
+          <article class="cyber-card">
+            <div class="card-header-bar">
+              <div class="card-title">
+                <span class="icon">🗺️</span> Nominal Regional Geographic Center
+              </div>
+              <span class="badge-tag badge-warning">AIR-GAPPED DATA</span>
+            </div>
+
+            <div class="alert alert-info" style="font-size: 0.8rem; margin-bottom: 0.85rem;">
+              ℹ️ <strong>Telecom Privacy Reality:</strong> Cell tower GPS and real-time physical addresses are <em>never</em> publicly retrievable via phone numbers alone. The pin below represents the nominal national/regional capital.
+            </div>
+
+            <!-- Leaflet Map Container for OSINT -->
+            <div id="osintMap" class="map-container-box"></div>
+
+            <div style="margin-top: 1rem; font-size: 0.8rem; color: #94a3b8; line-height: 1.5;">
+              <p>To acquire high-precision GPS coordinates with authenticated timestamps and physical street addresses, switch to <strong>Tab 02: Live GPS &amp; Address Locator</strong>.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+
+      <!-- TAB 2: AUTHORIZED LIVE GPS AND PHYSICAL ADDRESS LOCATOR -->
+      <section class="tab-panel" id="tabGeo">
+        <div class="section-intro">
+          <h2>Authorized Live GPS &amp; Physical Address Locator</h2>
+          <p>Demonstrates the verified, lawful method of capturing exact physical location: combining client-authorized W3C Geolocation hardware sensors with high-precision timestamps and OpenStreetMap reverse-geocoding.</p>
+        </div>
+
+        <!-- Controls Banner -->
+        <div class="cyber-card" style="margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <div>
+              <h3 style="color: #ffffff; font-size: 1.1rem; margin-bottom: 0.25rem;">Grasp Live Hardware Location</h3>
+              <p style="color: #94a3b8; font-size: 0.85rem;">Clicking will trigger your browser's secure location sensor dialog to capture high-accuracy coordinates.</p>
+            </div>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <button class="btn btn-emerald" id="acquireGpsBtn">
+                <span>📍 Acquire High-Accuracy GPS (Authorized)</span>
+              </button>
+              <button class="btn btn-outline-cyan" id="acquireIpBtn">
+                <span>🌐 IP Routing Fallback</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Status / Loading Indicator -->
+          <div id="geoStatusAlert" class="alert alert-info hidden" style="margin-top: 1rem; margin-bottom: 0;"></div>
+        </div>
+
+        <!-- Live Telemetry Results Container -->
+        <div id="geoResultBox" class="hidden">
+          <!-- Timestamps Row -->
+          <div class="telemetry-row">
+            <div class="telemetry-cell">
+              <div class="telemetry-cell-label">UTC Timestamp</div>
+              <div class="telemetry-cell-val" id="geoUtcTime" style="font-size: 0.95rem;">--</div>
+            </div>
+            <div class="telemetry-cell">
+              <div class="telemetry-cell-label">Local Time &amp; Zone</div>
+              <div class="telemetry-cell-val" id="geoLocalTime" style="font-size: 0.95rem;">--</div>
+            </div>
+            <div class="telemetry-cell">
+              <div class="telemetry-cell-label">Unix Epoch Time</div>
+              <div class="telemetry-cell-val" id="geoEpochTime" style="font-size: 0.95rem;">--</div>
+            </div>
+            <div class="telemetry-cell">
+              <div class="telemetry-cell-label">ISO-8601 String</div>
+              <div class="telemetry-cell-val" id="geoIsoTime" style="font-size: 0.82rem; word-break: break-all;">--</div>
+            </div>
+          </div>
+
+          <!-- Physical Address Showcase Box -->
+          <div class="address-showcase-box">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+              <div style="font-size: 0.8rem; font-family: var(--font-mono); color: #34d399; font-weight: 700;">
+                VERIFIED PHYSICAL ADDRESS (REVERSE-GEOCODED)
+              </div>
+              <span id="geoSourceBadge" class="badge-tag badge-success">GPS / HARDWARE SENSOR</span>
+            </div>
+            
+            <div class="address-highlight" id="geoFullAddress">
+              Scanning physical street coordinates...
+            </div>
+
+            <div class="address-breakdown-tags">
+              <div class="addr-chip">Street: <span id="geoStreet">--</span></div>
+              <div class="addr-chip">City: <span id="geoCity">--</span></div>
+              <div class="addr-chip">State/Region: <span id="geoState">--</span></div>
+              <div class="addr-chip">Postal Code: <span id="geoPostal">--</span></div>
+              <div class="addr-chip">Country: <span id="geoCountry">--</span></div>
+            </div>
+          </div>
+
+          <!-- 2-Column: Map and Telemetry Specs -->
+          <div class="grid-2col">
+            <!-- Left: High Precision Telemetry -->
+            <article class="cyber-card">
+              <div class="card-header-bar">
+                <div class="card-title">
+                  <span class="icon">🎯</span> GPS Telemetry Metrics
+                </div>
+                <span class="badge-tag badge-cyan">HARDWARE SENSORS</span>
+              </div>
+
+              <div class="detail-list" style="margin-bottom: 1.25rem;">
+                <div class="detail-item">
+                  <div class="detail-label">Latitude</div>
+                  <div class="detail-val" id="geoLat" style="color: #00f2fe;">--</div>
+                </div>
+                <div class="detail-item">
+                  <div class="detail-label">Longitude</div>
+                  <div class="detail-val" id="geoLon" style="color: #00f2fe;">--</div>
+                </div>
+                <div class="detail-item">
+                  <div class="detail-label">Accuracy Radius</div>
+                  <div class="detail-val" id="geoAccuracy" style="color: #34d399;">--</div>
+                </div>
+                <div class="detail-item">
+                  <div class="detail-label">Altitude</div>
+                  <div class="detail-val" id="geoAltitude">--</div>
+                </div>
+                <div class="detail-item">
+                  <div class="detail-label">Speed / Velocity</div>
+                  <div class="detail-val" id="geoSpeed">--</div>
+                </div>
+                <div class="detail-item">
+                  <div class="detail-label">Platform Architecture</div>
+                  <div class="detail-val" id="geoDevicePlatform">--</div>
+                </div>
+              </div>
+
+              <!-- Device and Connection Fingerprint -->
+              <div style="background: rgba(0,0,0,0.25); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 0.85rem; margin-bottom: 1.25rem;">
+                <div style="font-size: 0.72rem; color: #64748b; font-family: var(--font-mono); margin-bottom: 0.4rem;">DEVICE FINGERPRINT METADATA</div>
+                <div style="font-size: 0.82rem; color: #cbd5e1; line-height: 1.5;">
+                  <div>• Screen: <strong id="geoDeviceScreen" style="color: #ffffff;">--</strong></div>
+                  <div>• Hardware Threads: <strong id="geoDeviceCores" style="color: #ffffff;">--</strong></div>
+                  <div>• Network Type: <strong id="geoDeviceNet" style="color: #ffffff;">--</strong></div>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div style="display: flex; gap: 0.6rem; flex-wrap: wrap;">
+                <button class="btn btn-outline-cyan btn-sm" id="copyTelemetryJsonBtn">
+                  <span>📋 Copy JSON Telemetry</span>
+                </button>
+                <button class="btn btn-outline-gray btn-sm" id="downloadGeoJsonBtn">
+                  <span>💾 Download GeoJSON</span>
+                </button>
+              </div>
+            </article>
+
+            <!-- Right: Interactive Leaflet Pinpoint Map -->
+            <article class="cyber-card">
+              <div class="card-header-bar">
+                <div class="card-title">
+                  <span class="icon">🛰️</span> Pinpoint Satellite &amp; Street Map
+                </div>
+                <span class="badge-tag badge-emerald">HIGH ACCURACY</span>
+              </div>
+
+              <!-- Map Container -->
+              <div id="liveGeoMap" class="map-container-box"></div>
+
+              <div style="margin-top: 0.75rem; font-size: 0.78rem; color: #94a3b8; display: flex; justify-content: space-between;">
+                <span>Dotted circle indicates sensor uncertainty radius (±m).</span>
+                <span style="color: #00f2fe;">Tile: CartoDB Dark Matter</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- TAB 3: TELECOM PRIVACY AND SS7 LAB -->
+      <section class="tab-panel" id="tabTelecom">
+        <div class="section-intro">
+          <h2>Telecom Privacy &amp; Signaling Security Architecture</h2>
+          <p>Explore why cellular networks isolate subscriber location data, how base station multilateration operates, and how modern 5G standards cryptographically eliminate legacy tracking attacks.</p>
+        </div>
+
+        <!-- Cell Tower Triangulation Visualizer -->
+        <div id="cellTowerSimulator"></div>
+
+        <!-- SS7 and 5G Defense Visualizer -->
+        <div id="ss7Simulator"></div>
+      </section>
+
+
+      <!-- TAB 4: FORENSICS AUDIT TERMINAL AND DATABASE -->
+      <section class="tab-panel" id="tabAudit">
+        <div class="section-intro">
+          <h2>Cyber Forensics &amp; Database Audit Console</h2>
+          <p>Real-time terminal stream and persistent SQLite database records capturing phone OSINT lookups, telemetry coordinates, and forensic evidence.</p>
+        </div>
+
+        <!-- Database Engine Status Card -->
+        <div class="cyber-card" style="margin-bottom: 1.5rem;">
+          <div class="card-header-bar">
+            <div class="card-title">
+              <span class="icon">🗄️</span> Persistent Database Engine
+            </div>
+            <div style="display: flex; gap: 0.5rem; align-items: center;">
+              <span id="dbEngineBadge" class="badge-tag badge-success">SQLITE CONNECTED</span>
+              <button class="btn btn-outline-cyan btn-sm" id="refreshDbBtn" style="padding: 0.2rem 0.5rem; font-size: 0.72rem;">🔄 Refresh DB</button>
+            </div>
+          </div>
+
+          <div class="telemetry-row" style="margin-bottom: 0.75rem;">
+            <div class="telemetry-cell">
+              <div class="telemetry-cell-label">DB Engine</div>
+              <div class="telemetry-cell-val" id="dbEngineType" style="font-size: 0.95rem;">SQLite (node:sqlite)</div>
+            </div>
+            <div class="telemetry-cell">
+              <div class="telemetry-cell-label">Database File</div>
+              <div class="telemetry-cell-val" style="font-size: 0.85rem; color: #94a3b8;">data/cybertrace.db</div>
+            </div>
+            <div class="telemetry-cell">
+              <div class="telemetry-cell-label">Stored OSINT Scans</div>
+              <div class="telemetry-cell-val" id="dbLookupCount">0</div>
+            </div>
+            <div class="telemetry-cell">
+              <div class="telemetry-cell-label">Stored Geolocation Records</div>
+              <div class="telemetry-cell-val" id="dbTelemetryCount" style="color: #10b981;">0</div>
+            </div>
+          </div>
+
+          <div style="font-size: 0.8rem; color: #94a3b8; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+            <span>Records are permanently persisted into your SQLite database on every scan and location capture.</span>
+            <button class="btn btn-outline-gray btn-sm" id="clearDbBtn" style="padding: 0.2rem 0.5rem; font-size: 0.72rem; color: #f87171;">Clear Database</button>
+          </div>
+        </div>
+
+        <div class="terminal-window">
+          <div class="terminal-topbar">
+            <div class="terminal-dots">
+              <span class="tdot tdot-red"></span>
+              <span class="tdot tdot-amber"></span>
+              <span class="tdot tdot-green"></span>
+            </div>
+            <div class="terminal-title">CYBERTRACE_AUDIT_CONSOLE // TTY-SESSION-01</div>
+            <div class="terminal-actions">
+              <button class="btn btn-outline-cyan btn-sm" id="clearTerminalBtn" style="padding: 0.2rem 0.5rem; font-size: 0.72rem;">Clear</button>
+              <button class="btn btn-primary btn-sm" id="exportReportBtn" style="padding: 0.2rem 0.6rem; font-size: 0.72rem;">Export Audit Report</button>
+            </div>
+          </div>
+
+          <div class="terminal-output" id="terminalOutput" role="log">
+            <!-- Terminal lines populated dynamically by app.js -->
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; color: #64748b; font-size: 0.8rem; font-family: var(--font-mono);">
+      <div>CYBERTRACE SECURITY LAB &copy; 2026 // ETHICAL CYBERSECURITY &amp; TELECOM TELEMETRY</div>
+      <div>BUILT WITH HTML5, VANILLA CSS &amp; CLIENT TELEMETRY ENGINES</div>
+    </footer>
+  </div>
+
+  <!-- Leaflet JS for Maps -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js" crossorigin="anonymous"></script>
+
+  <!-- Application Logic Scripts -->
+  <script src="js/utils.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/phoneData.js"></script>
+  <script src="js/phoneOsint.js"></script>
+  <script src="js/geoTracker.js"></script>
+  <script src="js/telecomLab.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => console.log('[CyberTrace] SW registered:', reg.scope))
+          .catch(err => console.warn('[CyberTrace] SW failed:', err));
+      });
+    }
+  </script>
+</body>
+</html>

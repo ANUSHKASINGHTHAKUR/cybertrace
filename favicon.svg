@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512">
+  <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <!-- Background -->
+  <rect width="100" height="100" fill="#070a12" rx="18"/>
+  <!-- Hexagon frame -->
+  <polygon points="50,8 88,28 88,72 50,92 12,72 12,28"
+    fill="none" stroke="#00f2fe" stroke-width="3.5"
+    filter="url(#glow)" opacity="0.9"/>
+  <!-- Dish base -->
+  <line x1="50" y1="68" x2="50" y2="78" stroke="#00f2fe" stroke-width="3" stroke-linecap="round" filter="url(#glow)"/>
+  <line x1="41" y1="78" x2="59" y2="78" stroke="#00f2fe" stroke-width="3" stroke-linecap="round" filter="url(#glow)"/>
+  <!-- Dish bowl -->
+  <path d="M35,58 Q38,40 50,38 Q62,40 65,58 Z"
+    fill="none" stroke="#00f2fe" stroke-width="3" stroke-linecap="round" filter="url(#glow)"/>
+  <!-- Dish interior line -->
+  <line x1="50" y1="38" x2="50" y2="68" stroke="#00f2fe" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  <!-- Signal waves -->
+  <path d="M58,34 Q66,28 66,20" fill="none" stroke="#00f2fe" stroke-width="2.5" stroke-linecap="round" filter="url(#glow)"/>
+  <path d="M61,30 Q72,22 72,12" fill="none" stroke="#00f2fe" stroke-width="2" stroke-linecap="round" filter="url(#glow)" opacity="0.7"/>
+  <path d="M64,27 Q78,17 78,6" fill="none" stroke="#00f2fe" stroke-width="1.5" stroke-linecap="round" filter="url(#glow)" opacity="0.4"/>
+  <!-- Center dot -->
+  <circle cx="50" cy="38" r="3" fill="#00f2fe" filter="url(#glow)"/>
+</svg>
